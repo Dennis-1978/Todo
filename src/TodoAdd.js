@@ -11,26 +11,24 @@ export default class TodoAdd extends Component {
 
 		this.clearFormData();
 
-		this.handleTitleChange = this.handleTitleChange.bind(this);
-		this.handleDescChange = this.handleDescChange.bind(this);
+		this.generateChangeHandler = this.generateChangeHandler.bind(this);
 		this.handleImageChange = this.handleImageChange.bind(this);
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 	}
 
 	clearFormData() {
 		this.formData = {
-				title: '',
-				desc: '',
-				image: ''
+			title: '',
+			desc: '',
+			image: ''
 		};
 	};
 
-	handleTitleChange(event) {
-		this.formData.title = event.target.value;
-	}
-
-	handleDescChange(event) {
-		this.formData.desc = event.target.value;
+	generateChangeHandler(propertyName) {
+		return ((event) => {
+				this.formData[propertyName] = event.target.value.trim();
+			}
+		);
 	}
 
 	handleImageChange(event) {
@@ -41,7 +39,7 @@ export default class TodoAdd extends Component {
 			const that = this;
 
 			fileReader.onload = () => {
-					that.formData.image = fileReader.result;
+				that.formData.image = fileReader.result;
 			}
 
 			fileReader.readAsDataURL(cFiles[0]);
@@ -77,7 +75,7 @@ export default class TodoAdd extends Component {
 							<div className="control">
 								<input 
 									className="input"
-									onChange={this.handleTitleChange} />
+									onChange={this.generateChangeHandler('title')} />
 							</div>
 						</div>
 						<div className="field">
@@ -85,7 +83,7 @@ export default class TodoAdd extends Component {
 							<div className="control">
 								<textarea 
 									className="textarea"
-									onChange={this.handleDescChange} />
+									onChange={this.generateChangeHandler('desc')} />
 							</div>
 						</div>
 						<div className="field">
