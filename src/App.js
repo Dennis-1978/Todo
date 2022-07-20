@@ -1,10 +1,12 @@
 import { Component } from 'react';
-import { HashRouter, Routes, Route, NavLink } from 'react-router-dom';
+import { HashRouter, Routes, Route, NavLink, Link } from 'react-router-dom';
 
 import TodoList from './TodoList';
 import TodoAdd from './TodoAdd';
 import TodoDetail from './TodoDetail';
 import { SetDoneContext, DeleteContext } from './contexts';
+import DoneButton from "./DoneButton";
+import DeleteButton from "./DeleteButton";
 
 const date1 = new Date(2022, 6, 3, 8, 40);
 const date2 = new Date(2022, 6, 3, 9, 45);
@@ -119,7 +121,25 @@ export default class App extends Component {
 							<SetDoneContext.Provider value={this.setDone}>
 								<DeleteContext.Provider value={this.delete}>
 								<TodoList 
-									list={this.state.data} />
+									list={this.state.data}
+									render={(item) => 
+										(
+											<tr key={item.key}>
+												<td>
+													<Link to={`/${item.key}`}>
+														{item.done && <del>{item.title}</del>}
+														{!item.done && item.title}
+													</Link>
+												</td>
+												<td>
+													<DoneButton item={item} />
+												</td>
+												<td>
+													<DeleteButton item={item} />
+												</td>
+											</tr>
+										)
+									} />
 								</DeleteContext.Provider>
 							</SetDoneContext.Provider>
 						} />
