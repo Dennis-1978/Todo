@@ -1,5 +1,6 @@
 import { Component } from "react";
-import { Navigate } from 'react-router-dom';
+import { Navigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 export default class TodoAdd extends Component {
 	constructor(props) {
@@ -61,6 +62,10 @@ export default class TodoAdd extends Component {
 		event.target.reset();
 		this.setState((state) => ({redirect: true}));
 	}
+
+	static propTypes = {
+		add: PropTypes.func.isRequired
+	};
 
 	render() {
 		if (this.state.redirect) {

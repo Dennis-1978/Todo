@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { array} from "prop-types";
 
 import { TitleContext } from "./contexts";
 
@@ -16,3 +17,7 @@ export default function TodoList(props) {
 		</section>
 	);
 }
+
+TodoList.propTypes = {
+	list: array.isRequired
+};
